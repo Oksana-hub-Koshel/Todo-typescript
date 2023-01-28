@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Item from "./../App";
 
 export interface Item {
-  addItem: (text: string) => void;
+  addItem: (text: string, setValue: any) => void;
 }
 
 const AddItem = ({ addItem }: Item) => {
@@ -12,6 +12,7 @@ const AddItem = ({ addItem }: Item) => {
       <input
         placeholder="type here"
         onChange={(e) => setValue(e.target.value)}
+        value={value}
       />
       <button
         style={{
@@ -20,7 +21,7 @@ const AddItem = ({ addItem }: Item) => {
           width: 100,
           height: 20,
         }}
-        onClick={() => addItem(value)}
+        onClick={() => addItem(value, setValue)}
       >
         Add
       </button>

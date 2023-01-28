@@ -1,6 +1,10 @@
 import React from "react";
 
-const Search = () => {
+const Search = ({ setTerm, term }: any) => {
+  const searchInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setTerm(() => e.target.value);
+  };
+
   return (
     <div
       style={{
@@ -9,7 +13,12 @@ const Search = () => {
         justifyContent: "center",
       }}
     >
-      <input type="text" placeholder="type to search" />
+      <input
+        type="text"
+        placeholder="type to search"
+        value={term}
+        onChange={searchInput}
+      />
       <button>All</button>
       <button>Active</button>
       <button>Done</button>

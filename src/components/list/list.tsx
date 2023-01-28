@@ -1,30 +1,38 @@
-import React, { useState } from "react";
 import { ITodo } from "../../interfaces/interfaces";
 
-const List = ({ list, id, onDeleteHandler }: ITodo) => {
-  const [active, setActive] = useState(false);
-  const [color, setColor] = useState(false);
+const List = ({
+  list,
+  onDeleteHandler,
+  onToogleImportant,
+  onToogleDone,
+  color,
+  done,
+}: ITodo) => {
+  console.log(list);
 
   return (
-    <div
-      style={{
-        marginTop: 20,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 5,
-      }}
-    >
-      <div className="list">
-        <div
-          className={active ? "list_items" : "list_items_col"}
-          onClick={() => setActive(!active)}
-        >
-          <span className={color ? "cl_bl" : "cl_sim"}> {list}</span>
+    <div>
+      <div
+        style={{
+          marginTop: 20,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 5,
+        }}
+      >
+        <div className="list">
+          <div className={done ? "list_items_col" : "list_items"}>
+            <span
+              className={color ? "cl_bl" : "cl_sim"}
+              onClick={() => onToogleDone(list.id)}
+            >
+              {list.list}
+            </span>
+          </div>
+          <button onClick={() => onDeleteHandler(list.id)}>Delete</button>
+          <button onClick={() => onToogleImportant(list.id)}>Important</button>
         </div>
-
-        <button onClick={() => onDeleteHandler(id)}>Delete</button>
-        <button onClick={() => setColor(!color)}>Important</button>
       </div>
     </div>
   );

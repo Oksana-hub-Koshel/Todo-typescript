@@ -1,18 +1,17 @@
 export interface ITodo {
-  list: string;
-  id: number;
+  list: any;
+
   onDeleteHandler: (id: number) => void;
+  onToogleImportant: (id: number) => void;
+  onToogleDone: (id: number) => void;
+
+  color: boolean;
+  done: boolean;
 }
 
 export interface IProduct {
+  list: string;
+  important: boolean;
+  done: boolean;
   id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
 }
