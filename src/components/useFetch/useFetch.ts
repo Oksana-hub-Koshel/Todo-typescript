@@ -4,17 +4,17 @@ import data from "./../../data/data.json";
 
 const useProducts = () => {
   const [items, setItems] = useState<IProduct[]>(data);
-  const [done, setDone] = useState(false);
-  const [color, setColor] = useState(false);
+  const [filter, setFilter] = useState<string>("all");
 
   const onDeleteHandler = (id: number) => {
-    setItems((items): any => {
-      const idx = Array.from(items).findIndex((el: any) => el.id === id);
-      const newArr = [...items.slice(0, idx), ...items.slice(idx + 1)];
-      return {
-        items: newArr,
-      };
-    });
+    // setItems((items): any => {
+    //   const idx = Array.from(items).findIndex((el: any) => el.id === id);
+    //   const newArr = [...items.slice(0, idx), ...items.slice(idx + 1)];
+    //   return {
+    //     items: newArr,
+    //   };
+    // });
+    setItems((prev) => prev.filter((items) => items.id !== id));
   };
   let maxId = 100;
 
@@ -40,25 +40,45 @@ const useProducts = () => {
   // };
 
   const onToogleDone = (id: number): void => {
-    setItems((items): any => {
-      const idx = items.findIndex((el: any) => el.id === id);
-
-      const oldItem = items[idx];
-
-      const newItem = { ...oldItem, done: !done };
-
-      const newArr = [...items.slice(0, idx), newItem, ...items.slice(idx + 1)];
-      return {
-        newArr,
-      };
-    });
-    setDone(!done);
+    setItems([
+      ...items.map((task) =>
+        task.id === id ? { ...task, done: !task.done } : { ...task }
+      ),
+    ]);
   };
 
   const onToogleImportant = (id: number): void => {
-    if (id) {
-      setColor(!color);
+    setItems([
+      ...items.map((task) =>
+        task.id === id ? { ...task, important: !task.important } : { ...task }
+      ),
+    ]);
+  };
+
+  const filterItems = (items: any, filter: string) => {
+    switch (filter) {
+      case "all":
+        return items;
+      case "active":
+        return items.filter((item: any) => !item.done);
+      case "done":
+        return items.filter((item: any) => item.done);
+      default:
+        return items;
     }
+  };
+
+  const search = (items: IProduct[], term: string) => {
+    return items.filter((val: any) => {
+      if (term === "") {
+        return val;
+      } else if (val.list.toLowerCase().includes(term.toLowerCase())) {
+        return val;
+      }
+    });
+  };
+  const onFilterChange = (filter: string) => {
+    setFilter(filter);
   };
 
   // async function fetchProducts() {
@@ -88,8 +108,10 @@ const useProducts = () => {
     addItem,
     onToogleDone,
     onToogleImportant,
-    color,
-    done,
+    filterItems,
+    filter,
+    onFilterChange,
+    search,
   };
 };
 

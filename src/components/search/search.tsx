@@ -1,9 +1,15 @@
 import React from "react";
 
-const Search = ({ setTerm, term }: any) => {
+const Search = ({ setTerm, term, filter, onFilterChange }: any) => {
   const searchInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setTerm(() => e.target.value);
   };
+
+  const buttons = [
+    { name: "all", label: "All" },
+    { name: "active", label: "Active" },
+    { name: "done", label: "Done" },
+  ];
 
   return (
     <div
@@ -19,9 +25,19 @@ const Search = ({ setTerm, term }: any) => {
         value={term}
         onChange={searchInput}
       />
-      <button>All</button>
-      <button>Active</button>
-      <button>Done</button>
+      {buttons.map((elem, i) => {
+        const isActive = filter === elem.name;
+        const clazz = isActive ? "btn-active" : "btn-no-active";
+        return (
+          <button
+            key={i}
+            className={clazz}
+            onClick={() => onFilterChange(elem.name)}
+          >
+            {elem.label}
+          </button>
+        );
+      })}
     </div>
   );
 };

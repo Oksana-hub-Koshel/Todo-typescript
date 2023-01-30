@@ -40,6 +40,7 @@
 
 .list{
   display: flex;
+
   justify-content: space-between;
 border: 1px solid grey;
   padding: 10px;
@@ -58,4 +59,12 @@ text-decoration: line-through;
 }
 .cl_sim{
   color:gray;
+}
+
+
+.btn-active{
+  background-color: #61dafb;
+}
+.btn-no-active{
+  background-color: aliceblue;
 }
