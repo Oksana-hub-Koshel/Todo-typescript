@@ -11,3 +11,10 @@ export interface IProduct {
   done: boolean;
   id: number;
 }
+
+export interface ITodos{
+  list: string,
+  important: boolean,
+  done:boolean,
+  id: number
+}

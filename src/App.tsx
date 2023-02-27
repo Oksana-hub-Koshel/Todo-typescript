@@ -5,10 +5,17 @@ import List from "./components/list/list";
 import AddItem from "./components/add_item";
 import useProducts from "./components/useFetch/useFetch";
 import Done from "./components/done/done";
+import {useAppDispatch, useAppSelector} from "./hooks/redux";
+import todosSlice from "./redux/reducers/todosSlice";
+import {increment} from "./redux/reducers/todosSlice"
 
 function App() {
   const [term, setTerm] = useState("");
-  const {
+
+  const {count}=useAppSelector(state=>state.todos)
+    const dispatch=useAppDispatch()
+
+    const {
     items,
     addItem,
     onDeleteHandler,
@@ -41,6 +48,10 @@ function App() {
       />
 
       <AddItem addItem={addItem} />
+
+        {count}
+        <button onClick={()=> dispatch(increment(10))}>Inc</button>
+
     </div>
   );
 }
