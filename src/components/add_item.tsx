@@ -1,18 +1,28 @@
 import React, { useState } from "react";
 import Item from "./../App";
+import { useAppDispatch } from "../hooks/redux";
+import { addNewTodo } from "../redux/reducers/todoSlice";
 
-export interface Item {
-  addItem: (text: string, setValue: any) => void;
-}
-
-const AddItem = ({ addItem }: Item) => {
+const AddItem = () => {
   const [value, setValue] = useState("");
+  const dispatch = useAppDispatch();
+
+  const onAddHandler = () => {
+    dispatch(addNewTodo(value));
+    setValue("");
+  };
   return (
     <div>
       <input
         placeholder="type here"
         onChange={(e) => setValue(e.target.value)}
         value={value}
+        style={{
+          border: "solid grey",
+          marginRight: 10,
+          padding: 5,
+          marginBottom: 40,
+        }}
       />
       <button
         style={{
@@ -21,7 +31,7 @@ const AddItem = ({ addItem }: Item) => {
           width: 100,
           height: 20,
         }}
-        onClick={() => addItem(value, setValue)}
+        onClick={onAddHandler}
       >
         Add
       </button>

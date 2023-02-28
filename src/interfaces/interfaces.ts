@@ -1,15 +1,8 @@
-export interface ITodo {
-  list: any;
-  onDeleteHandler: (id: number) => void;
-  onToogleImportant: (id: number) => void;
-  onToogleDone: (id: number) => void;
-}
 
-export interface IProduct {
-  list: string;
-  important: boolean;
-  done: boolean;
-  id: number;
+export interface ITodo {
+  id: number,
+  title: string
+  completed: boolean
 }
 
 export interface IUsers{

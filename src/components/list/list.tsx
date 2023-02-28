@@ -1,14 +1,21 @@
-import { IProduct, ITodo } from "../../interfaces/interfaces";
+import { useEffect } from "react";
+import { AppDispatch } from "../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import TodosService from "../../services/todosService/todosService";
+import { fetchTodos } from "../../redux/reducers/todoSlice";
 
-const List = ({
-  list,
-  onDeleteHandler,
-  onToogleImportant,
-  onToogleDone,
-}: ITodo) => {
+const List = () => {
+  const dispatch = useAppDispatch();
+  const todos = useAppSelector((state) => state.todos.todos);
+
+  console.log(todos);
+  useEffect(() => {
+    dispatch(fetchTodos());
+  }, []);
+
   return (
     <div>
-      {list.map((elem: IProduct) => {
+      {todos.map((elem) => {
         return (
           <div
             style={{
@@ -21,18 +28,10 @@ const List = ({
             key={elem.id}
           >
             <div className="list">
-              <div className={elem.done ? "list_items_col" : "list_items"}>
-                <span
-                  className={elem.important ? "cl_bl" : "cl_sim"}
-                  onClick={() => onToogleDone(elem.id)}
-                >
-                  {elem.list}
-                </span>
+              <div className={elem.completed ? "list_items_col" : "list_items"}>
+                <span>{elem.title}</span>
               </div>
-              <button onClick={() => onDeleteHandler(elem.id)}>Delete</button>
-              <button onClick={() => onToogleImportant(elem.id)}>
-                Important
-              </button>
+              <button>Delete</button>
             </div>
           </div>
         );

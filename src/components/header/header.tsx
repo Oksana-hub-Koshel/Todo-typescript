@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 
 const Header = () => {
     return (
-        <div style={{display:"flex", gap:20, justifyContent:"center"}}>
+        <div style={{display:"flex", gap:30, justifyContent:"center"}}>
             <NavLink to="/">Home</NavLink>
             <NavLink to="/todo">Todo</NavLink>
         </div>

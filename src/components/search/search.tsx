@@ -17,6 +17,7 @@ const Search = ({ setTerm, term, filter, onFilterChange }: any) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+          marginTop:20
       }}
     >
       <input
@@ -24,7 +25,9 @@ const Search = ({ setTerm, term, filter, onFilterChange }: any) => {
         placeholder="type to search"
         value={term}
         onChange={searchInput}
+        style={{border:"solid grey", marginRight:10, padding:5}}
       />
+        <div style={{display:"flex", gap:5}}>
       {buttons.map((elem, i) => {
         const isActive = filter === elem.name;
         const clazz = isActive ? "btn-active" : "btn-no-active";
@@ -38,6 +41,7 @@ const Search = ({ setTerm, term, filter, onFilterChange }: any) => {
           </button>
         );
       })}
+        </div>
     </div>
   );
 };
