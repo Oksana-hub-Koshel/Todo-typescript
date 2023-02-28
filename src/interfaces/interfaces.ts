@@ -12,9 +12,8 @@ export interface IProduct {
   id: number;
 }
 
-export interface ITodos{
-  list: string,
-  important: boolean,
-  done:boolean,
+export interface IUsers{
+  title: string,
+  completed:boolean,
   id: number
 }
