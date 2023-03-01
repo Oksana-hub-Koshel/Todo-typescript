@@ -2,7 +2,11 @@ import { useEffect } from "react";
 import { AppDispatch } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import TodosService from "../../services/todosService/todosService";
-import { fetchTodos } from "../../redux/reducers/todoSlice";
+import {
+  deleteTodo,
+  fetchTodos,
+  toggleImportant,
+} from "../../redux/reducers/todoSlice";
 
 const List = () => {
   const dispatch = useAppDispatch();
@@ -29,9 +33,13 @@ const List = () => {
           >
             <div className="list">
               <div className={elem.completed ? "list_items_col" : "list_items"}>
-                <span>{elem.title}</span>
+                <span onClick={() => dispatch(toggleImportant(elem.id))}>
+                  {elem.title}
+                </span>
               </div>
-              <button>Delete</button>
+              <button onClick={() => dispatch(deleteTodo(elem.id))}>
+                Delete
+              </button>
             </div>
           </div>
         );
