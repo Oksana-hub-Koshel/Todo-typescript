@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import Item from "./../App";
 import { useAppDispatch } from "../hooks/redux";
 import { addNewTodo } from "../redux/reducers/todoSlice";
+import Input from "./input/input";
+import Button from "./button/button";
+
+type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const AddItem = () => {
   const [value, setValue] = useState("");
@@ -11,30 +15,18 @@ const AddItem = () => {
     dispatch(addNewTodo(value));
     setValue("");
   };
+
+  // const onChangeInput = (e: InputEvent): void => {
+  //   setValue(e.target.value);
+  // };
   return (
-    <div>
-      <input
-        placeholder="type here"
-        onChange={(e) => setValue(e.target.value)}
+    <div className="flex justify-center  mt-6 mb-6">
+      <Input
+        inputProps={{ placeholder: "Add item", type: "text" }}
+        onChange={() => {}}
         value={value}
-        style={{
-          border: "solid grey",
-          marginRight: 10,
-          padding: 5,
-          marginBottom: 40,
-        }}
       />
-      <button
-        style={{
-          color: "black",
-          marginTop: 20,
-          width: 100,
-          height: 20,
-        }}
-        onClick={onAddHandler}
-      >
-        Add
-      </button>
+      <Button onClick={onAddHandler}>Add item</Button>
     </div>
   );
 };

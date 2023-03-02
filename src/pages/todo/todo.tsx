@@ -20,7 +20,7 @@ const Todo = () => {
 
   return (
     <div>
-      <h1 style={{ marginTop: 20, fontSize: 25, marginBottom: 20 }}>
+      <h1 className="flex justify-center font-bold mt-6 mb-6 font-sans text-4xl">
         Todo List
       </h1>
       <Done />
