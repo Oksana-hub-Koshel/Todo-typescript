@@ -1,36 +1,46 @@
 import React, { useState } from "react";
 import Button from "../../../components/button/button";
-
-interface IUser {
-  id: number;
-  name: string;
-}
+import { IUser } from "../../../interfaces/interfaces";
+import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { deleteUser } from "../../../redux/reducers/userSlice";
 
 const UserList = () => {
+  const users = useAppSelector((state) => state.users.users);
+  const loading = useAppSelector((state) => state.users.loading);
+  const dispatch = useAppDispatch();
+
   const renderCard = () =>
     users.map((user) => {
       return (
-        <div className="flex bg-gray-300 items-center justify-between p-4">
+        <div
+          key={user.id}
+          className="flex bg-gray-300 items-center justify-between p-4"
+        >
           <div>
             <h3 className="font-bold text-lg text-gray-600">{user.name}</h3>
             <span className="font-normal text-gray-600">{user.email}</span>
           </div>
           <div className="flex gap-6 justify-center items-center">
+            <Link to={`/edit-user/${user.id}`}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+                />
+              </svg>
+            </Link>
+
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-              />
-            </svg>
-            <svg
+              onClick={() => dispatch(deleteUser(Number(user.id)))}
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -49,18 +59,21 @@ const UserList = () => {
       );
     });
 
-  const users = [
-    { id: 1, name: "Alex Jame", email: "slex.gmail.com" },
-    { id: 2, name: "Max Failer", email: "max.gmail.com" },
-    { id: 3, name: "Marry James", email: "marry.gmail.com" },
-  ];
-  const [user, setUser] = useState<IUser[]>(users);
   return (
     <>
-      <Button>Add User</Button>
-      <div className="grid gap-6 md:grid-cols-2 mt-6">
-        {users.length ? renderCard() : <p>No Users</p>}
-      </div>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          <Link to="/add-user">
+            <Button>Add User</Button>
+          </Link>
+
+          <div className="grid gap-6 md:grid-cols-2 mt-6">
+            {users.length ? renderCard() : <p>No Users</p>}
+          </div>
+        </>
+      )}
     </>
   );
 };

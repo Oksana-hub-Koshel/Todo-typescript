@@ -1,9 +1,8 @@
-import {AppDispatch} from "../store";
+import { AppDispatch } from "../store";
 import axios from "axios";
-import userSlice, {fetchUserError, fetchUserRequest, fetchUserSuccess} from "./userSlice";
-import {IUsers} from "../../interfaces/interfaces";
-import {createAsyncThunk} from "@reduxjs/toolkit";
 
+import { IUsers } from "../../interfaces/interfaces";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 // export const fetchUsers = () => async(dispatch: AppDispatch)=> {
 //     try {
@@ -14,9 +13,6 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 //         dispatch(fetchUserError(e.message))
 //     }
 // }
-
-
-
 
 // export const fetchUsers=createAsyncThunk(
 //     "users/fetchUsers",

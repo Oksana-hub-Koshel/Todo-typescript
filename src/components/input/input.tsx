@@ -1,8 +1,9 @@
 import React from "react";
+import { InputEvent } from "../../types/types";
 
 interface inputProps {
   inputProps: {};
-  onChange?: () => void;
+  onChange: (e: InputEvent) => void;
   value: string;
 }
 

@@ -1,64 +1,73 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IUsers} from "../../interfaces/interfaces";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IUser } from "../../interfaces/interfaces";
 
+const users = [
+  { id: 1, name: "Alex Jame", email: "slex.gmail.com" },
+  { id: 2, name: "Max Failer", email: "max.gmail.com" },
+  { id: 3, name: "Marry James", email: "marry.gmail.com" },
+];
 
-
-interface usersState{
-    users: IUsers[],
-    loading: boolean,
-    error: string,
-
+interface usersState {
+  users: IUser[];
+  loading: boolean;
+  error: string;
 }
 
-const initialState:usersState={
-    users: [],
-    loading:false,
-    error:'',
+const initialState: usersState = {
+  users: users,
+  loading: false,
+  error: "",
+};
 
-}
-
-
+type User = {
+  id: number;
+  name: string;
+  email: string;
+};
 
 const userSlice = createSlice({
-    name: "users",
-    initialState,
-    reducers: {
-        fetchUserRequest(state) {
-            state.loading = true
-        },
-        fetchUserSuccess(state, action: PayloadAction<IUsers[]>) {
-            state.loading = false
-                state.users = action.payload
-                state.error = ''
-
-        },
-        fetchUserError(state, action: PayloadAction<string>) {
-            state.loading = false
-                state.error = action.payload
-        }
+  name: "users",
+  initialState,
+  reducers: {
+    addUser(state, action: PayloadAction<User>) {
+      state.users.push(action.payload);
     },
-    //
-    // extraReducers:{
-    //     [fetchUsers.fulfilled.type]: (state, action: PayloadAction<IUsers[]>)=>{
-    //         state.loading = false,
-    //             state.users = action.payload,
-    //             state.error = ''
-    //     },
-    //     [fetchUsers.pending.type]: (state)=>{
-    //         state.loading = true
-    //     },
-    //     [fetchUsers.rejected.type]: (state, action: PayloadAction<string>)=>{
-    //         state.loading = false,
-    //             state.error = action.payload
-    //     }
-    // }
-})
+    deleteUser(state, action: PayloadAction<number>) {
+      // const user=state.users.find(elem=> elem.id===action.payload)
+      //
+      // if(user){
+      //   return state.users.filter(user=> user.id!==action.payload)
+      // }
+      state.users.filter((user) => user.id !== action.payload);
+    },
+    editUser(state, action: PayloadAction<User>) {
+      const { id, name, email } = action.payload;
+      const existingUser = state.users.find((user) => user.id === id);
+      if (existingUser) {
+        existingUser.name = name;
+        existingUser.email = email;
+        existingUser.id = id;
+      }
+    },
+  },
 
-export const {
-    fetchUserRequest,
-    fetchUserSuccess,
-    fetchUserError
+  //
+  // extraReducers:{
+  //     [fetchUsers.fulfilled.type]: (state, action: PayloadAction<IUsers[]>)=>{
+  //         state.loading = false,
+  //             state.users = action.payload,
+  //             state.error = ''
+  //     },
+  //     [fetchUsers.pending.type]: (state)=>{
+  //         state.loading = true
+  //     },
+  //     [fetchUsers.rejected.type]: (state, action: PayloadAction<string>)=>{
+  //         state.loading = false,
+  //             state.error = action.payload
+  //     }
+  // }
+});
 
-} = userSlice.actions;
+export const { addUser, deleteUser, editUser } = userSlice.actions;
 
 export default userSlice.reducer;
