@@ -9,6 +9,7 @@ const Header = () => {
       <div className="flex gap-6">
         <NavLink to="/">Home</NavLink>
         <NavLink to="/todo">Todo</NavLink>
+        <NavLink to="/login">Login</NavLink>
       </div>
       <Input
         inputProps={{ placeholder: "type here...", type: "text" }}

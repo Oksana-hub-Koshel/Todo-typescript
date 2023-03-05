@@ -7,7 +7,7 @@ import Button from "./button/button";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
-const AddItem = () => {
+const AddItem: React.FC = () => {
   const [value, setValue] = useState("");
   const dispatch = useAppDispatch();
 
@@ -23,7 +23,9 @@ const AddItem = () => {
     <div className="flex justify-center  mt-6 mb-6">
       <Input
         inputProps={{ placeholder: "Add item", type: "text" }}
-        onChange={() => {}}
+        onChange={(e: InputEvent) => {
+          setValue(e.target.value);
+        }}
         value={value}
       />
       <Button onClick={onAddHandler}>Add item</Button>

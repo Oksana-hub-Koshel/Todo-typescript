@@ -5,7 +5,7 @@ import Button from "../../../components/button/button";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { editUser } from "../../../redux/reducers/userSlice";
 
-const EditUser = () => {
+const EditUser: React.FC = () => {
   const [values, setValues] = useState({
     name: "",
     email: "",
