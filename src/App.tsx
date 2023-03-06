@@ -7,6 +7,7 @@ import Todo from "./pages/todo/todo";
 import AddUser from "./pages/users/addUser/AddUser";
 import EditUser from "./pages/users/editUser/editUser";
 import Login from "./pages/login/login";
+import Register from "./pages/register/register";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/edit-user/:id" element={<EditUser />} />
         <Route path="/todo" element={<Todo />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );

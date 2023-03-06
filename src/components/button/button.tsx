@@ -1,6 +1,11 @@
 import React from "react";
 
-const Button = ({ onClick, children }: any) => {
+interface buttonProps {
+  children?: string;
+  onClick?: () => void;
+}
+
+const Button = ({ onClick, children }: buttonProps) => {
   return (
     <button
       onClick={onClick}

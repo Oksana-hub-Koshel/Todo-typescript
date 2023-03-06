@@ -3,7 +3,7 @@ import { InputEvent } from "../../types/types";
 
 interface TextProps {
   label: string;
-  inputProps: {};
+  inputProps: { type: string; placeholder: string };
   onChange: (e: InputEvent) => void;
   value: string;
 }

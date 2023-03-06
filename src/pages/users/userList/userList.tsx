@@ -4,6 +4,7 @@ import { IUser } from "../../../interfaces/interfaces";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { deleteUser } from "../../../redux/reducers/userSlice";
+import { useAuth } from "../../../hooks/useAuth";
 
 const UserList: React.FC = () => {
   const users = useAppSelector((state) => state.users.users);
@@ -65,19 +66,13 @@ const UserList: React.FC = () => {
 
   return (
     <>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <>
-          <Link to="/add-user">
-            <Button>Add User</Button>
-          </Link>
+      <Link to="/add-user">
+        <Button>Add User</Button>
+      </Link>
 
-          <div className="grid gap-6 md:grid-cols-2 mt-6">
-            {users.length ? renderCard() : <p>No Users</p>}
-          </div>
-        </>
-      )}
+      <div className="grid gap-6 md:grid-cols-2 mt-6">
+        {users.length ? renderCard() : <p>No users</p>}
+      </div>
     </>
   );
 };

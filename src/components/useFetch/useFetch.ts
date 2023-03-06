@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import data from "./../../data/data.json";
-
 const useProducts = () => {
   // const [items, setItems] = useState<IProduct[]>(data);
   const [filter, setFilter] = useState<string>("all");
