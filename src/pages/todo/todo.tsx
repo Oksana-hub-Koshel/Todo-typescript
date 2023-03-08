@@ -1,22 +1,15 @@
 import React, { useState } from "react";
-import useProducts from "../../components/useFetch/useFetch";
 import Done from "../../components/done/done";
 import Search from "../../components/search/search";
 import List from "../../components/list/list";
 import AddItem from "../../components/add_item";
+import useTodos from "../../components/useFetch/useTodos";
 
 const Todo = () => {
   const [term, setTerm] = useState("");
+  const { todos, filterItems, onFilterChange, filter, search } = useTodos();
 
-  // const {
-  //     items,
-  //     filterItems,
-  //     onFilterChange,
-  //     filter,
-  //     search,
-  // } = useProducts();
-
-  // const visibleItems = filterItems(search(items, term), filter);
+  const visibleItems = filterItems(search(todos, term), filter);
 
   return (
     <div>
@@ -24,17 +17,13 @@ const Todo = () => {
         Todo List
       </h1>
       <Done />
-      {/*<Search*/}
-      {/*    setTerm={setTerm}*/}
-      {/*    term={term}*/}
-      {/*    filter={filter}*/}
-      {/*    onFilterChange={onFilterChange}*/}
-      {/*/>*/}
-
-      <List
-      // list={visibleItems}
+      <Search
+        term={term}
+        setTerm={setTerm}
+        filter={filter}
+        onFilterChange={onFilterChange}
       />
-
+      <List list={visibleItems} />
       <AddItem />
     </div>
   );

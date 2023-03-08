@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import Button from "../../../components/button/button";
-import { IUser } from "../../../interfaces/interfaces";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { deleteUser } from "../../../redux/reducers/userSlice";
-import { useAuth } from "../../../hooks/useAuth";
 
 const UserList: React.FC = () => {
   const users = useAppSelector((state) => state.users.users);
-  const loading = useAppSelector((state) => state.users.loading);
   const dispatch = useAppDispatch();
 
   const handleRemoveUser = (id: number) => {

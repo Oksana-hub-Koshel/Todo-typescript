@@ -154,7 +154,7 @@ const todoSlice = createSlice({
         }
       })
       .addCase(deleteTodo.fulfilled, (state, action) => {
-        state.todos.filter((elem) => elem.id !== action.payload);
+        state.todos = state.todos.filter((elem) => elem.id !== action.payload);
       });
   },
 });

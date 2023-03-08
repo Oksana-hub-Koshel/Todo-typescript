@@ -1,25 +1,23 @@
+import React from "react";
 import { useEffect } from "react";
-import { AppDispatch } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import TodosService from "../../services/todosService/todosService";
 import {
   deleteTodo,
   fetchTodos,
   toggleImportant,
 } from "../../redux/reducers/todoSlice";
 
-const List = () => {
+const List = ({ list }) => {
   const dispatch = useAppDispatch();
-  const todos = useAppSelector((state) => state.todos.todos);
+  // const todos = useAppSelector((state) => state.todos.todos);
 
-  console.log(todos);
   useEffect(() => {
     dispatch(fetchTodos());
   }, []);
 
   return (
     <div>
-      {todos.map((elem) => {
+      {list.map((elem) => {
         return (
           <div
             style={{
