@@ -143,7 +143,13 @@ const todoSlice = createSlice({
         state.todos = action.payload;
       })
       .addCase(addNewTodo.fulfilled, (state, action) => {
-        state.todos.push(action.payload);
+        localStorage.setItem("action", JSON.stringify(action.payload));
+        const stateStr = localStorage.getItem("action");
+        if (stateStr) {
+          state.todos.push(JSON.parse(stateStr));
+        } else {
+          return undefined;
+        }
       })
       .addCase(toggleImportant.fulfilled, (state, action) => {
         const toggleTodo = state.todos.find(

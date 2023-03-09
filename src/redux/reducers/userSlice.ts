@@ -30,7 +30,14 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     addUser(state, action: PayloadAction<User>) {
-      state.users.push(action.payload);
+      localStorage.setItem("user", JSON.stringify(action.payload));
+      const stateStr = localStorage.getItem("user");
+      if (stateStr) {
+        state.users.push(JSON.parse(stateStr));
+      } else {
+        return undefined;
+      }
+      // state.users.push(action.payload);
     },
     deleteUser(state, action: PayloadAction<number>) {
       state.users = state.users.filter((user) => user.id !== action.payload);

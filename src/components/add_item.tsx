@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Item from "./../App";
 import { useAppDispatch } from "../hooks/redux";
 import { addNewTodo } from "../redux/reducers/todoSlice";
 import Input from "./input/input";
 import Button from "./button/button";
+import { useLocalStorage } from "../localStorage/useLocalStorage";
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -12,13 +13,14 @@ const AddItem: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const onAddHandler = () => {
-    dispatch(addNewTodo(value));
+    const local = localStorage.setItem("newItem", value);
+    if (localStorage.getItem("newItem") !== null) {
+      dispatch(addNewTodo(value));
+    }
+
     setValue("");
   };
 
-  // const onChangeInput = (e: InputEvent): void => {
-  //   setValue(e.target.value);
-  // };
   return (
     <div className="flex justify-center  mt-6 mb-6">
       <Input

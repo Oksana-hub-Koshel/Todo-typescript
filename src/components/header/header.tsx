@@ -1,18 +1,24 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Input from "../input/input";
 import Button from "../button/button";
 import { useAppDispatch } from "../../hooks/redux";
 import { removeUser } from "../../redux/reducers/authSlice";
 import { useAuth } from "../../hooks/useAuth";
+import { endSession, isLoggedIn } from "../../session";
 
 const Header = () => {
   const [value, setValue] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const signOutHandler = () => {
-    dispatch(removeUser());
+  // const signOutHandler = () => {
+  //   dispatch(removeUser());
+  //   navigate("/login");
+  // };
+
+  const onLogout = () => {
+    endSession();
     navigate("/login");
   };
 
@@ -21,7 +27,6 @@ const Header = () => {
       <div className="flex gap-6">
         <NavLink to="/">Home</NavLink>
         <NavLink to="/todo">Todo</NavLink>
-        <NavLink to="/login">Login</NavLink>
       </div>
       <div className="flex gap-2">
         <Input
@@ -29,7 +34,14 @@ const Header = () => {
           onChange={() => {}}
           value={value}
         />
-        <Button onClick={signOutHandler} children={"Sign Out"} />
+
+        {isLoggedIn() ? (
+          <Button onClick={onLogout} children={"Sign Out"} />
+        ) : (
+          <Link to="/login">
+            <Button onClick={() => {}} children={"Login"} />
+          </Link>
+        )}
       </div>
     </div>
   );

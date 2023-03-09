@@ -9,7 +9,6 @@ import {
 
 const List = ({ list }) => {
   const dispatch = useAppDispatch();
-  // const todos = useAppSelector((state) => state.todos.todos);
 
   useEffect(() => {
     dispatch(fetchTodos());
